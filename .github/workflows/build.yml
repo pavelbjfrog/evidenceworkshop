@@ -29,7 +29,14 @@ jobs:
           registry: ${{ vars.ARTIFACTORY_URL }}
           username: ${{ secrets.JF_USER }}
           password: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
-          
+      
+     - name: Log in to Artifactory Docker Registry
+      env:
+        DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      run: |
+        echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login --username "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+      
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
