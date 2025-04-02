@@ -1,3 +1,5 @@
+ # Add more steps as needed for your build process
+
 name: Build with evidence
 
 on:
@@ -26,7 +28,11 @@ jobs:
           registry: ${{ vars.ARTIFACTORY_URL }}
           username: ${{ secrets.JF_USER }}
           password: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
+     
+      - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
+    # Add more steps as needed for your build process
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
